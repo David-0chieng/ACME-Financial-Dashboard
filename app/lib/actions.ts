@@ -1,5 +1,6 @@
 "use server";
 import { z } from "zod";
+import { redirect } from "next/navigation";
 import postgres from "postgres";
 const FormSchema = z.object({
 	id: z.string(),
@@ -27,4 +28,5 @@ export async function createInvoice(formData: FormData) {
     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   `;
     revalidatePath("/dashboard/invoices");
+    redirect("/dashboard/invoices");
 }
